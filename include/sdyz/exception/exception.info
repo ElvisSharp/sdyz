@@ -1,0 +1,19 @@
+# 0.ExceptPack code : 1000 - 1999
+# 运行时异常
+{'mes' :'算数异常' , 'name' :'Arithmetic_Execption' , 'code' : 1001}
+{'mes' :'空指针异常' , 'name' :'NullPointer_Exception' , 'code' : 1002}
+{'mes' :'类型强制转换异常' , 'name' :'Class_Cast_Exception' , 'code' : 1003}
+{'mes' :'数组负下标异常' , 'name' :'Negative_Array_Exception' , 'code' : 1004}
+{'mes' :'数组下标越界异常' , 'name' :'Array_Index_Out_Of_Bounds_Exception' , 'code' : 1005}
+{'mes' :'创建一个大小为负数的数组错误异常' , 'name' :'Negative_Array_Size_Exception' , 'code' : 1006}
+# 文件操作异常
+{'mes' :'文件已结束异常' , 'name' :'EOF_Exception' , 'code' : 1007}
+{'mes' :'文件未找到异常' , 'name' :'File_Not_Found_Exception' , 'code' : 1008}
+{'mes' :'输入输出异常' , 'name' :'IO_Exception' , 'code' : 1009}
+# 数据异常
+{'mes' :'数据格式异常' , 'name' :'Number_Format_Exception' , 'code' : 1010}
+{'mes' :'非法参数异常' , 'name' :'Illegal_Argument_Exception' , 'code' : 1011}
+{'mes' :'系统异常' , 'name' :'System_Exception' , 'code' : 1012}
+{'mes' :'违背安全原则异常' , 'name' :'Secturity_Exception' , 'code' : 1013}
+{'mes' :'安全异常' , 'name' :'Security_Exception' , 'code' : 1014}
+{'mes' :'不支持的操作异常' , 'name' :'Unsupported_Operation_Exception' , 'code' : 1015}

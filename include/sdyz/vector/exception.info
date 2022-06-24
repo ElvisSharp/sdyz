@@ -1,0 +1,3 @@
+{'name' : 'Different_ByteVector_Size', 'code' : 2010, 'mes' : '字节数组长度不一致'}
+{'name' : 'Invalid_Hex_String', 'code' : 2011, 'mes' : '不合法的十六进制字符串'}
+{'name' : 'Invalid_Bin_String', 'code' : 2012, 'mes' : '不合法的二进制字符串'}

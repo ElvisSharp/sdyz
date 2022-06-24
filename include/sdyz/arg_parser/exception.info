@@ -1,0 +1,2 @@
+{'name' : 'Invalid_Arguments', 'code' : 2020, 'mes' : '非法的命令行参数'}
+{'name' : 'Invalid_Default_Cmd_Start_Index', 'code' : 2021, 'mes' : '非法的或未设置默认的命令开始下标'}
