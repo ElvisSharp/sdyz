@@ -1,10 +1,3 @@
-/*************************************************************************
-	> File Name: AES.cpp
-	> Author: SongLee
-	> E-mail: lisong.shine@qq.com
-	> Created Time: 2014年12月12日 星期五 20时15分50秒
-	> Personal Blog: http://songlee24.github.com
- ************************************************************************/
 #include <iostream>
 #include <string>
 #include <sdyz/aes/aes_core.hpp>

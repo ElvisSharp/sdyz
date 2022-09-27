@@ -52,60 +52,71 @@ namespace sdyz
 
 	void aes::encrypt(const byte_vector& _Key)
 	{
+		// 拷贝key
 		std_byte key[AES_STD_BLOCK_SIZE];
 		_Key.copy_to_byte_arr(key, AES_STD_BLOCK_SIZE);
+		// 拷贝plain明文到aes对象
 		std_byte plain[AES_STD_BLOCK_SIZE];
 		copy_to_byte_arr(plain, AES_STD_BLOCK_SIZE);
+		// aes_core::Nr为10轮，std_dword为32位，一共就是11个128位
 		std_dword* w = new std_dword[4 * (aes_core::Nr + 1)];
+		// 拓展11轮密钥
 		aes_core::KeyExpansion(key, w);
+		// 用11轮密钥对plain加密
 		aes_core::encrypt(plain, w);
+		// 将加密后数据写回
 		set_by_byte_arr(plain, AES_STD_BLOCK_SIZE);
-		delete w;
+		delete[] w;
 	}
 
 	void aes::decrypt(const byte_vector& _Key)
 	{
+		// 拷贝key
 		std_byte key[AES_STD_BLOCK_SIZE];
 		_Key.copy_to_byte_arr(key, AES_STD_BLOCK_SIZE);
+		// 拷贝cipher密文到aes对象
 		std_byte cipher[AES_STD_BLOCK_SIZE];
 		copy_to_byte_arr(cipher, AES_STD_BLOCK_SIZE);
+		// aes_core::Nr为10轮，std_dword为32位，一共就是11个128位
 		std_dword* w = new std_dword[4 * (aes_core::Nr + 1)];
+		// 拓展11轮密钥
 		aes_core::KeyExpansion(key, w);
 		aes_core::decrypt(cipher, w);
+		// 将解密后数据写回
 		set_by_byte_arr(cipher, AES_STD_BLOCK_SIZE);
-		delete w;
+		delete[] w;
 	}
 
-	const byte_vector aes::OFB_stream_producer(const byte_vector& _BaseKey,
+	const byte_vector aes::OFB_stream_producer(const byte_vector& _Nonce,
 		const byte_vector& _Key,
 		size_t _Round_Count)
 	{
 		byte_vector res;
-		//basekey是标准的128bits
-		aes base_key(_BaseKey);
+		//nonce是标准的128bits
+		aes nonce(_Nonce);
 		byte_vector key(_Key);
 		for (int i = 0; i < _Round_Count; ++i)
 		{
 			//循环加密
-			base_key.encrypt(key);
-			res = res + base_key;
+			nonce.encrypt(key);
+			res = res + nonce;
 		}
 		return res;
 	}
 
-	void aes::OFB_encrypt(const byte_vector& _BaseKey,
+	void aes::OFB_encrypt(const byte_vector& _Nonce,
 		const byte_vector& _Key)
 	{
-		byte_vector OFB_stream = aes::OFB_stream_producer(_BaseKey,
+		byte_vector OFB_stream = aes::OFB_stream_producer(_Nonce,
 			_Key, size() / _Key.size() + 1);
 		*this = (*this) ^ OFB_stream;
 		return;
 	}
 
-	void aes::OFB_decrypt(const byte_vector& _BaseKey,
+	void aes::OFB_decrypt(const byte_vector& _Nonce,
 		const byte_vector& _Key)
 	{
-		byte_vector OFB_Stream = aes::OFB_stream_producer(_BaseKey,
+		byte_vector OFB_Stream = aes::OFB_stream_producer(_Nonce,
 			_Key, size() / _Key.size() + 1);
 		*this = (*this) ^ OFB_Stream;
 		return;

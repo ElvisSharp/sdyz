@@ -66,36 +66,36 @@ namespace sdyz
 		this->set_by_bin_string(block.to_string());
 	}
 
-	const byte_vector des::OFB_stream_producer(const byte_vector& _BaseKey,
+	const byte_vector des::OFB_stream_producer(const byte_vector& _Nonce,
 		const byte_vector& _Key,
 		size_t _Round_Count)
 	{
 		byte_vector res;
-		//basekey是标准的64bits
-		des base_key(_BaseKey);
+		//nonce是标准的64bits
+		des nonce(_Nonce);
 		byte_vector key(_Key);
 		for (int i = 0; i < _Round_Count; ++i)
 		{
 			//循环加密
-			base_key.encrypt(key);
-			res = res + base_key;
+			nonce.encrypt(key);
+			res = res + nonce;
 		}
 		return res;
 	}
 
-	void des::OFB_encrypt(const byte_vector& _BaseKey,
+	void des::OFB_encrypt(const byte_vector& _Nonce,
 		const byte_vector& _Key)
 	{
-		byte_vector OFB_stream = des::OFB_stream_producer(_BaseKey,
+		byte_vector OFB_stream = des::OFB_stream_producer(_Nonce,
 			_Key, size() / _Key.size() + 1);
 		*this = (*this) ^ OFB_stream;
 		return;
 	}
 
-	void des::OFB_decrypt(const byte_vector& _BaseKey,
+	void des::OFB_decrypt(const byte_vector& _Nonce,
 		const byte_vector& _Key)
 	{
-		byte_vector OFB_Stream = des::OFB_stream_producer(_BaseKey,
+		byte_vector OFB_Stream = des::OFB_stream_producer(_Nonce,
 			_Key, size() / _Key.size() + 1);
 		*this = (*this) ^ OFB_Stream;
 		return;

@@ -79,20 +79,20 @@ void run(int _Argc, char** _Argv)
 	if (parser[EN].cmd_exists())
 	{
 		des p(to_byte_vector(parser[INPUT][0]));
-		byte_vector base_key = rand_byte_vector(8);
-		p.OFB_encrypt(base_key, key);
-		cout << base_key.to_hex_string() << p.to_hex_string() << endl;
+		byte_vector nonce = rand_byte_vector(8);
+		p.OFB_encrypt(nonce, key);
+		cout << nonce.to_hex_string() << p.to_hex_string() << endl;
 	}
 	//解密
 	else if (parser[DE].cmd_exists())
 	{
 		byte_vector input_vector(parser[INPUT][0]);
-		byte_vector base_key(8);
+		byte_vector nonce(8);
 		byte_vector input(input_vector.size() - 8);
-		std::copy(input_vector.begin(), input_vector.begin() + 8, base_key.begin());
+		std::copy(input_vector.begin(), input_vector.begin() + 8, nonce.begin());
 		std::copy(input_vector.begin() + 8, input_vector.end(), input.begin());
 		des c(input);
-		c.OFB_decrypt(base_key, key);
+		c.OFB_decrypt(nonce, key);
 		cout << to_string(c) << endl;
 	}
 }

@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.1)
-project(sdyz VERSION 4.0.0)
+project(sdyz VERSION 4.0.1)
+
+#       Vesion                  Description
+#       v4.0.1                  1.更新CMakeLists.txt，对源文件进行分类；2.修改部分注释；3.修改basekey为nonce
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -28,6 +31,17 @@ file(GLOB SDYZ_CONSOLE_CPP src/console/*.cpp)
 file(GLOB SDYZ_TOOLS_CPP src/tools/*.cpp)
 file(GLOB SDYZ_VECTOR_CPP src/vector/*.cpp)
 file(GLOB SDYZ_HASH_CPP src/hash/*.cpp)
+
+#源文件分组
+source_group(aes FILES ${SDYZ_AES_CPP})
+source_group(des FILES ${SDYZ_DES_CPP})
+source_group(arg_parser FILES ${SDYZ_ARG_PARSER_CPP})
+source_group(exception FILES ${SDYZ_EXCEPTION_CPP})
+source_group(plus FILES ${SDYZ_PLUS_CPP})
+source_group(console FILES ${SDYZ_CONSOLE_CPP})
+source_group(tools FILES ${SDYZ_TOOLS_CPP})
+source_group(vector FILES ${SDYZ_VECTOR_CPP})
+source_group(hash FILES ${SDYZ_HASH_CPP})
 
 #导出的类
 add_library(
