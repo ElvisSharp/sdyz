@@ -4,6 +4,7 @@ project(sdyz VERSION 4.0.2)
 #       Vesion                  Description
 #       v4.0.1                  1.更新CMakeLists.txt，对源文件进行分类；2.修改部分注释；3.修改basekey为nonce
 #       v4.0.2                  1.更新CMakeLists.txt，对头文件进行分类
+#       v4.0.3                  1.新增编码转换encoding
 
 set(CMAKE_CXX_STANDARD 11)
 
