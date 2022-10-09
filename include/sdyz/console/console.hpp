@@ -19,25 +19,20 @@ namespace sdyz
 	public:
 		progress_bar();
 
-		progress_bar(unsigned long* _Rate);
-
 		~progress_bar();
 
 	private:
 		//当前的进度
 		unsigned long current_rate_;
-		//绑定的进度
-		unsigned long* bind_rate_;
 		//输出流
 		FILE* output_stream_;
 
 	public:
-		//绑定进度
-		void bind_rate(unsigned long* _Rate);
-
-	public:
-		//使用异步的打印，支持多线程
-		void operator()();
+		//设置当前值
+		void set_current_rate(unsigned long _Current_Rate);
+		
+		//结束进度条
+		void end_progress_bar();
 
 	};
 

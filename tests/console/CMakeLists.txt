@@ -9,7 +9,3 @@ add_executable(${PROJECT_NAME} ${TEST_CONSOLE_CPP})
 
 #链接sdyz库
 target_link_libraries(${PROJECT_NAME} sdyz)
-
-if(${GCC_OR_CLANG})
-    target_link_libraries(${PROJECT_NAME} pthread)
-endif(${GCC_OR_CLANG})

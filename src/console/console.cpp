@@ -8,19 +8,9 @@ namespace sdyz
 			"====================================================================================================";
 
 	progress_bar::progress_bar()
-			: bind_rate_(NULL),
-			  current_rate_(0),
+			: current_rate_(0),
 			  output_stream_(stdout)
 	{
-
-	}
-
-	progress_bar::progress_bar(unsigned long* _Rate)
-			: bind_rate_(_Rate),
-			  current_rate_(0),
-			  output_stream_(stdout)
-	{
-
 	}
 
 	progress_bar::~progress_bar()
@@ -28,20 +18,13 @@ namespace sdyz
 
 	}
 
-	void progress_bar::bind_rate(unsigned long* _Rate)
+	void progress_bar::set_current_rate(unsigned long _Current_Rate)
 	{
-		bind_rate_ = _Rate;
-		return;
-	}
-
-	void progress_bar::operator()()
-	{
-		if (!bind_rate_)
-		{
-			return;
-		}
+		// 设置当前值
+		current_rate_ = _Current_Rate;
 		const char* rotate_str = "-\\|/";
-		//初始化打印进度条
+		// 初始化打印进度条
+		// 计算偏移数
 		unsigned long out_format_offset =
 				(current_rate_ > SDYZ_PROGRESS_BAR_TOTAL) ? SDYZ_PROGRESS_BAR_TOTAL : current_rate_;
 		fprintf(output_stream_, "[%-100s][%2d%%][%c]",
@@ -50,24 +33,13 @@ namespace sdyz
 				rotate_str[current_rate_ % 4]);
 		fprintf(output_stream_, "\r");
 		fflush(output_stream_);
-		while (current_rate_ <= SDYZ_PROGRESS_BAR_TOTAL)
-		{
-			//进度没有改变就不重新打印
-			while (*bind_rate_ == current_rate_);
-			current_rate_ = *bind_rate_;
-			out_format_offset =
-					(current_rate_ > SDYZ_PROGRESS_BAR_TOTAL) ? SDYZ_PROGRESS_BAR_TOTAL : current_rate_;
-			fprintf(output_stream_, "[%-100s][%2d%%][%c]",
-					progress_bar_format_ + SDYZ_PROGRESS_BAR_TOTAL - out_format_offset,
-					current_rate_,
-					rotate_str[current_rate_ % 4]);
-			fprintf(output_stream_, "\r");
-			fflush(output_stream_);
-			if (current_rate_ >= SDYZ_PROGRESS_BAR_TOTAL)
-			{
-				return;
-			}
-		}
 		return;
 	}
+
+	void progress_bar::end_progress_bar()
+	{
+		fprintf(output_stream_, "\n");
+		return;
+	}
+
 }
