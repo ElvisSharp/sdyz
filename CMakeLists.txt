@@ -1,51 +1,92 @@
 cmake_minimum_required(VERSION 3.1)
-project(sdyz VERSION 4.0.1)
+project(sdyz VERSION 4.0.2)
 
 #       Vesion                  Description
 #       v4.0.1                  1.更新CMakeLists.txt，对源文件进行分类；2.修改部分注释；3.修改basekey为nonce
+#       v4.0.2                  1.更新CMakeLists.txt，对头文件进行分类
 
 set(CMAKE_CXX_STANDARD 11)
 
 set(GCC_OR_CLANG ((CMAKE_CXX_COMPILER_ID MATCHES "Clang") OR CMAKE_COMPILER_IS_GNUCXX))
 
-#更换生成目录
-set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
-
-#对于MSVC需要支持utf-8
+# 对于MSVC需要支持utf-8
 if(MSVC_VERSION)
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8")
     set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /utf-8")
 endif(MSVC_VERSION)
 
-#包含的目录
-include_directories("${PROJECT_SOURCE_DIR}/include")
+# 更换生成目录
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
-#加入源文件
-file(GLOB SDYZ_AES_CPP src/aes/*.cpp)
-file(GLOB SDYZ_DES_CPP src/des/*.cpp)
-file(GLOB SDYZ_ARG_PARSER_CPP src/arg_parser/*.cpp)
-file(GLOB SDYZ_EXCEPTION_CPP src/exception/*.cpp)
-file(GLOB SDYZ_PLUS_CPP src/plus/*.cpp)
-file(GLOB SDYZ_CONSOLE_CPP src/console/*.cpp)
-file(GLOB SDYZ_TOOLS_CPP src/tools/*.cpp)
-file(GLOB SDYZ_VECTOR_CPP src/vector/*.cpp)
-file(GLOB SDYZ_HASH_CPP src/hash/*.cpp)
+# 源文件以及头文件的目录
+set(SDYZ_SOURCE_PATH "${PROJECT_SOURCE_DIR}/src")
+set(SDYZ_INCLUDE_PATH "${PROJECT_SOURCE_DIR}/include")
 
-#源文件分组
-source_group(aes FILES ${SDYZ_AES_CPP})
-source_group(des FILES ${SDYZ_DES_CPP})
-source_group(arg_parser FILES ${SDYZ_ARG_PARSER_CPP})
-source_group(exception FILES ${SDYZ_EXCEPTION_CPP})
-source_group(plus FILES ${SDYZ_PLUS_CPP})
-source_group(console FILES ${SDYZ_CONSOLE_CPP})
-source_group(tools FILES ${SDYZ_TOOLS_CPP})
-source_group(vector FILES ${SDYZ_VECTOR_CPP})
-source_group(hash FILES ${SDYZ_HASH_CPP})
+# 设定包含的目录
+include_directories(${SDYZ_INCLUDE_PATH})
 
-#导出的类
+#加入头文件
+file(GLOB SDYZ_AES_HPP ${SDYZ_INCLUDE_PATH}/sdyz/aes/*.hpp)
+file(GLOB SDYZ_DES_HPP ${SDYZ_INCLUDE_PATH}/sdyz/des/*.hpp)
+file(GLOB SDYZ_CAST_HPP ${SDYZ_INCLUDE_PATH}/sdyz/cast/*.hpp)
+file(GLOB SDYZ_ARG_PARSER_HPP ${SDYZ_INCLUDE_PATH}/sdyz/arg_parser/*.hpp)
+file(GLOB SDYZ_EXCEPTION_HPP ${SDYZ_INCLUDE_PATH}/sdyz/exception/*.hpp)
+file(GLOB SDYZ_PLUS_HPP ${SDYZ_INCLUDE_PATH}/sdyz/plus/*.hpp)
+file(GLOB SDYZ_CONSOLE_HPP ${SDYZ_INCLUDE_PATH}/sdyz/console/*.hpp)
+file(GLOB SDYZ_TOOLS_HPP ${SDYZ_INCLUDE_PATH}/sdyz/tools/*.hpp)
+file(GLOB SDYZ_VECTOR_HPP ${SDYZ_INCLUDE_PATH}/sdyz/vector/*.hpp)
+file(GLOB SDYZ_HASH_HPP ${SDYZ_INCLUDE_PATH}/sdyz/hash/*.hpp)
+
+# 分组头文件
+source_group("include\\aes" FILES ${SDYZ_AES_HPP})
+source_group("include\\des" FILES ${SDYZ_DES_HPP})
+source_group("include\\cast" FILES ${SDYZ_CAST_HPP})
+source_group("include\\arg_parser" FILES ${SDYZ_ARG_PARSER_HPP})
+source_group("include\\exception" FILES ${SDYZ_EXCEPTION_HPP})
+source_group("include\\plus" FILES ${SDYZ_PLUS_HPP})
+source_group("include\\console" FILES ${SDYZ_CONSOLE_HPP})
+source_group("include\\tools" FILES ${SDYZ_TOOLS_HPP})
+source_group("include\\vector" FILES ${SDYZ_VECTOR_HPP})
+source_group("include\\hash" FILES ${SDYZ_HASH_HPP})
+
+# 加入源文件
+file(GLOB SDYZ_AES_CPP ${SDYZ_SOURCE_PATH}/aes/*.cpp)
+file(GLOB SDYZ_DES_CPP ${SDYZ_SOURCE_PATH}/des/*.cpp)
+file(GLOB SDYZ_ARG_PARSER_CPP ${SDYZ_SOURCE_PATH}/arg_parser/*.cpp)
+file(GLOB SDYZ_EXCEPTION_CPP ${SDYZ_SOURCE_PATH}/exception/*.cpp)
+file(GLOB SDYZ_PLUS_CPP ${SDYZ_SOURCE_PATH}/plus/*.cpp)
+file(GLOB SDYZ_CONSOLE_CPP ${SDYZ_SOURCE_PATH}/console/*.cpp)
+file(GLOB SDYZ_TOOLS_CPP ${SDYZ_SOURCE_PATH}/tools/*.cpp)
+file(GLOB SDYZ_VECTOR_CPP ${SDYZ_SOURCE_PATH}/vector/*.cpp)
+file(GLOB SDYZ_HASH_CPP ${SDYZ_SOURCE_PATH}/hash/*.cpp)
+
+# 分组源文件
+source_group("src\\aes" FILES ${SDYZ_AES_CPP})
+source_group("src\\des" FILES ${SDYZ_DES_CPP})
+source_group("src\\arg_parser" FILES ${SDYZ_ARG_PARSER_CPP})
+source_group("src\\exception" FILES ${SDYZ_EXCEPTION_CPP})
+source_group("src\\plus" FILES ${SDYZ_PLUS_CPP})
+source_group("src\\console" FILES ${SDYZ_CONSOLE_CPP})
+source_group("src\\tools" FILES ${SDYZ_TOOLS_CPP})
+source_group("src\\vector" FILES ${SDYZ_VECTOR_CPP})
+source_group("src\\hash" FILES ${SDYZ_HASH_CPP})
+
+# 导出的类
 add_library(
     ${PROJECT_NAME} 
+    # 加入头文件
+    ${SDYZ_AES_HPP}
+    ${SDYZ_DES_HPP}
+    ${SDYZ_CAST_HPP}
+    ${SDYZ_ARG_PARSER_HPP}
+    ${SDYZ_EXCEPTION_HPP}
+    ${SDYZ_PLUS_HPP}
+    ${SDYZ_CONSOLE_HPP}
+    ${SDYZ_TOOLS_HPP}
+    ${SDYZ_VECTOR_HPP}
+    ${SDYZ_HASH_HPP}
+    # 加入源文件
     ${SDYZ_AES_CPP} 
     ${SDYZ_DES_CPP} 
     ${SDYZ_ARG_PARSER_CPP} 
