@@ -101,7 +101,7 @@ void printHelpInfo()
 {
 	string s = "This program is developed by 三点一洲（三点一洲工作室）\n"
 		"Copyright (c) 三点一洲（三点一洲工作室） All copyright reserved\n"
-		"The simple help for DES:\n";
+		"The simple help for mdes:\n";
 	cout << s;
 	cout << "-h, --help\t显示帮助信息" << endl;
 	cout << "-e, --en\t对明文进行加密" << endl;

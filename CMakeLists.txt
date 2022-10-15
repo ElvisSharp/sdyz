@@ -150,6 +150,12 @@ if(TEST_VECTOR)
 endif(TEST_VECTOR)
 
 #需要编译的子项目
+#mcaes
+option(MCAES "Compile mcaes" ON)
+if(MCAES)
+    add_subdirectory(tools/mcaes)
+endif(MCAES)
+
 #maes
 option(MAES "Compile maes" ON)
 if(MAES)

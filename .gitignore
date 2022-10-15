@@ -14,7 +14,15 @@
 /cmake-build-release/
 /cmake_build/
 /build/
+CMakeFiles/
 *.bak
 *.ilk
 *.pdb
 *.obj
+/tools/mcaes/*.vcxproj
+/tools/maes/*.sln
+/CMakeCache.txt
+*.vcxproj
+*.filters
+*.cmake
+*.sln
