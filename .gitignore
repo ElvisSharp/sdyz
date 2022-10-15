@@ -15,13 +15,11 @@
 /cmake_build/
 /build/
 CMakeFiles/
+/CMakeCache.txt
 *.bak
 *.ilk
 *.pdb
 *.obj
-/tools/mcaes/*.vcxproj
-/tools/maes/*.sln
-/CMakeCache.txt
 *.vcxproj
 *.filters
 *.cmake
