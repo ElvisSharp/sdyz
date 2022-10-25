@@ -151,19 +151,19 @@ endif(TEST_VECTOR)
 
 #需要编译的子项目
 #mcaes
-option(MCAES "Compile mcaes" ON)
-if(MCAES)
-    add_subdirectory(tools/mcaes)
-endif(MCAES)
+option(MCAESER "Compile mcaeser" ON)
+if(MCAESER)
+    add_subdirectory(tools/mcaeser)
+endif(MCAESER)
 
 #maes
-option(MAES "Compile maes" ON)
-if(MAES)
-    add_subdirectory(tools/maes)
-endif(MAES)
+option(MAESER "Compile maeser" ON)
+if(MAESER)
+    add_subdirectory(tools/maeser)
+endif(MAESER)
 
 #mdes
-option(MDES "Compile mdes" ON)
-if(MDES)
-    add_subdirectory(tools/mdes)
-endif(MDES)
+option(MDESER "Compile mdeser" ON)
+if(MDESER)
+    add_subdirectory(tools/mdeser)
+endif(MDESER)

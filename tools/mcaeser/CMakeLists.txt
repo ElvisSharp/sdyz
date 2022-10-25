@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.1)
-project(maes)
+project(mcaeser)
 
 #测试的源文件
-file(GLOB MAES_CPP *.cpp)
+file(GLOB MCAESER_CPP *.cpp)
 
 #编译测试文件
-add_executable(${PROJECT_NAME} ${MAES_CPP})
+add_executable(${PROJECT_NAME} ${MCAESER_CPP})
 
 #链接sdyz库
 target_link_libraries(${PROJECT_NAME} sdyz)
