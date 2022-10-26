@@ -29,75 +29,81 @@ set(SDYZ_INCLUDE_PATH "${PROJECT_SOURCE_DIR}/include")
 include_directories(${SDYZ_INCLUDE_PATH})
 
 #加入头文件
-file(GLOB SDYZ_AES_HPP ${SDYZ_INCLUDE_PATH}/sdyz/aes/*.hpp)
-file(GLOB SDYZ_DES_HPP ${SDYZ_INCLUDE_PATH}/sdyz/des/*.hpp)
+file(GLOB SDYZ_ALGORITHM_CRYPTOGRAPHY_AES_HPP ${SDYZ_INCLUDE_PATH}/sdyz/algorithm/cryptography/aes/*.hpp)
+file(GLOB SDYZ_ALGORITHM_CRYPTOGRAPHY_DES_HPP ${SDYZ_INCLUDE_PATH}/sdyz/algorithm/cryptography/des/*.hpp)
 file(GLOB SDYZ_CAST_HPP ${SDYZ_INCLUDE_PATH}/sdyz/cast/*.hpp)
 file(GLOB SDYZ_ARG_PARSER_HPP ${SDYZ_INCLUDE_PATH}/sdyz/arg_parser/*.hpp)
+file(GLOB SDYZ_CRYPTER_HPP ${SDYZ_INCLUDE_PATH}/sdyz/crypter/*.hpp)
 file(GLOB SDYZ_EXCEPTION_HPP ${SDYZ_INCLUDE_PATH}/sdyz/exception/*.hpp)
 file(GLOB SDYZ_PLUS_HPP ${SDYZ_INCLUDE_PATH}/sdyz/plus/*.hpp)
 file(GLOB SDYZ_CONSOLE_HPP ${SDYZ_INCLUDE_PATH}/sdyz/console/*.hpp)
 file(GLOB SDYZ_TOOLS_HPP ${SDYZ_INCLUDE_PATH}/sdyz/tools/*.hpp)
 file(GLOB SDYZ_VECTOR_HPP ${SDYZ_INCLUDE_PATH}/sdyz/vector/*.hpp)
-file(GLOB SDYZ_HASH_HPP ${SDYZ_INCLUDE_PATH}/sdyz/hash/*.hpp)
+file(GLOB SDYZ_ALGORITHM_HASH_HPP ${SDYZ_INCLUDE_PATH}/sdyz/algorithm/hash/*.hpp)
 
 # 分组头文件
-source_group("include\\aes" FILES ${SDYZ_AES_HPP})
-source_group("include\\des" FILES ${SDYZ_DES_HPP})
+source_group("include\\algorithm\\cryptography\\aes" FILES ${SDYZ_ALGORITHM_CRYPTOGRAPHY_AES_HPP})
+source_group("include\\algorithm\\cryptography\\des" FILES ${SDYZ_ALGORITHM_CRYPTOGRAPHY_DES_HPP})
 source_group("include\\cast" FILES ${SDYZ_CAST_HPP})
 source_group("include\\arg_parser" FILES ${SDYZ_ARG_PARSER_HPP})
+source_group("include\\crypter" FILES ${SDYZ_CRYPTER_HPP})
 source_group("include\\exception" FILES ${SDYZ_EXCEPTION_HPP})
 source_group("include\\plus" FILES ${SDYZ_PLUS_HPP})
 source_group("include\\console" FILES ${SDYZ_CONSOLE_HPP})
 source_group("include\\tools" FILES ${SDYZ_TOOLS_HPP})
 source_group("include\\vector" FILES ${SDYZ_VECTOR_HPP})
-source_group("include\\hash" FILES ${SDYZ_HASH_HPP})
+source_group("include\\algorithm\\hash" FILES ${SDYZ_ALGORITHM_HASH_HPP})
 
 # 加入源文件
-file(GLOB SDYZ_AES_CPP ${SDYZ_SOURCE_PATH}/aes/*.cpp)
-file(GLOB SDYZ_DES_CPP ${SDYZ_SOURCE_PATH}/des/*.cpp)
+file(GLOB SDYZ_ALGORITHM_CRYPTOGRAPHY_AES_CPP ${SDYZ_SOURCE_PATH}/algorithm/cryptography/aes/*.cpp)
+file(GLOB SDYZ_ALGORITHM_CRYPTOGRAPHY_DES_CPP ${SDYZ_SOURCE_PATH}/algorithm/cryptography/des/*.cpp)
 file(GLOB SDYZ_ARG_PARSER_CPP ${SDYZ_SOURCE_PATH}/arg_parser/*.cpp)
+file(GLOB SDYZ_CRYPTER_CPP ${SDYZ_SOURCE_PATH}/crypter/*.cpp)
 file(GLOB SDYZ_EXCEPTION_CPP ${SDYZ_SOURCE_PATH}/exception/*.cpp)
 file(GLOB SDYZ_PLUS_CPP ${SDYZ_SOURCE_PATH}/plus/*.cpp)
 file(GLOB SDYZ_CONSOLE_CPP ${SDYZ_SOURCE_PATH}/console/*.cpp)
 file(GLOB SDYZ_TOOLS_CPP ${SDYZ_SOURCE_PATH}/tools/*.cpp)
 file(GLOB SDYZ_VECTOR_CPP ${SDYZ_SOURCE_PATH}/vector/*.cpp)
-file(GLOB SDYZ_HASH_CPP ${SDYZ_SOURCE_PATH}/hash/*.cpp)
+file(GLOB SDYZ_ALGORITHM_HASH_CPP ${SDYZ_SOURCE_PATH}/algorithm/hash/*.cpp)
 
 # 分组源文件
-source_group("src\\aes" FILES ${SDYZ_AES_CPP})
-source_group("src\\des" FILES ${SDYZ_DES_CPP})
+source_group("src\\algorithm\\cryptography\\aes" FILES ${SDYZ_ALGORITHM_CRYPTOGRAPHY_AES_CPP})
+source_group("src\\algorithm\\cryptography\\des" FILES ${SDYZ_ALGORITHM_CRYPTOGRAPHY_DES_CPP})
 source_group("src\\arg_parser" FILES ${SDYZ_ARG_PARSER_CPP})
+source_group("src\\crypter" FILES ${SDYZ_CRYPTER_CPP})
 source_group("src\\exception" FILES ${SDYZ_EXCEPTION_CPP})
 source_group("src\\plus" FILES ${SDYZ_PLUS_CPP})
 source_group("src\\console" FILES ${SDYZ_CONSOLE_CPP})
 source_group("src\\tools" FILES ${SDYZ_TOOLS_CPP})
 source_group("src\\vector" FILES ${SDYZ_VECTOR_CPP})
-source_group("src\\hash" FILES ${SDYZ_HASH_CPP})
+source_group("src\\algorithm\\hash" FILES ${SDYZ_ALGORITHM_HASH_CPP})
 
 # 导出的类
 add_library(
     ${PROJECT_NAME} 
     # 加入头文件
-    ${SDYZ_AES_HPP}
-    ${SDYZ_DES_HPP}
+    ${SDYZ_ALGORITHM_CRYPTOGRAPHY_AES_HPP}
+    ${SDYZ_ALGORITHM_CRYPTOGRAPHY_DES_HPP}
     ${SDYZ_CAST_HPP}
     ${SDYZ_ARG_PARSER_HPP}
+    ${SDYZ_CRYPTER_HPP}
     ${SDYZ_EXCEPTION_HPP}
     ${SDYZ_PLUS_HPP}
     ${SDYZ_CONSOLE_HPP}
     ${SDYZ_TOOLS_HPP}
     ${SDYZ_VECTOR_HPP}
-    ${SDYZ_HASH_HPP}
+    ${SDYZ_ALGORITHM_HASH_HPP}
     # 加入源文件
-    ${SDYZ_AES_CPP} 
-    ${SDYZ_DES_CPP} 
-    ${SDYZ_ARG_PARSER_CPP} 
+    ${SDYZ_ALGORITHM_CRYPTOGRAPHY_AES_CPP} 
+    ${SDYZ_ALGORITHM_CRYPTOGRAPHY_DES_CPP} 
+    ${SDYZ_ARG_PARSER_CPP}
+    ${SDYZ_CRYPTER_CPP}
     ${SDYZ_EXCEPTION_CPP}
     ${SDYZ_PLUS_CPP}
     ${SDYZ_CONSOLE_CPP}
     ${SDYZ_TOOLS_CPP}
     ${SDYZ_VECTOR_CPP}
-    ${SDYZ_HASH_CPP}
+    ${SDYZ_ALGORITHM_HASH_CPP}
 )
 
 #需要编译的测试项目
@@ -150,19 +156,19 @@ if(TEST_VECTOR)
 endif(TEST_VECTOR)
 
 #需要编译的子项目
-#mcaes
+#mcaeser
 option(MCAESER "Compile mcaeser" ON)
 if(MCAESER)
     add_subdirectory(tools/mcaeser)
 endif(MCAESER)
 
-#maes
+#maeser
 option(MAESER "Compile maeser" ON)
 if(MAESER)
     add_subdirectory(tools/maeser)
 endif(MAESER)
 
-#mdes
+#mdeser
 option(MDESER "Compile mdeser" ON)
 if(MDESER)
     add_subdirectory(tools/mdeser)

@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <ctime>
 
+#include <string>
 
 namespace sdyz
 {
@@ -18,4 +19,7 @@ namespace sdyz
 	
 	//返回0~end之间一个随机整数，[0, end)
 	int randint(int _End);
+
+	// 随机密码
+	std::string rndpwd();
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include <sdyz/vector/byte_vector.hpp>
-#include <sdyz/des/des.hpp>
+#include <sdyz/algorithm/cryptography/des/des.hpp>
 #include <sdyz/arg_parser/arg_parser.hpp>
 #include <iostream>
 

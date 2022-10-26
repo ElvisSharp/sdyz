@@ -1,6 +1,6 @@
 #pragma once
 #include <sdyz/vector/byte_vector.hpp>
-#include <sdyz/aes/aes.hpp>
+#include <sdyz/algorithm/cryptography/aes/aes.hpp>
 #include <sdyz/arg_parser/arg_parser.hpp>
 #include <iostream>
 

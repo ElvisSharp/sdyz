@@ -4,8 +4,8 @@
 
 #include <sdyz/vector/byte_vector.hpp>
 #include <sdyz/exception/exception_pack.hpp>
-#include <sdyz/des/des.hpp>
-#include <sdyz/hash/sha1.hpp>
+#include <sdyz/algorithm/cryptography/des/des.hpp>
+#include <sdyz/algorithm/hash/sha1.hpp>
 #include <sdyz/arg_parser/arg_parser.hpp>
 
 #include "run.h"

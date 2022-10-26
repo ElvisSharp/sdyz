@@ -1,5 +1,5 @@
-#include <sdyz/aes/aes_core.hpp>
-#include <sdyz/aes/aes.hpp>
+#include <sdyz/algorithm/cryptography/aes/aes_core.hpp>
+#include <sdyz/algorithm/cryptography/aes/aes.hpp>
 #include <sdyz/vector/byte_vector.hpp>
 
 namespace sdyz

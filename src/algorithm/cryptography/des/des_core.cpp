@@ -1,4 +1,4 @@
-#include <sdyz/des/des_core.hpp>
+#include <sdyz/algorithm/cryptography/des/des_core.hpp>
 
 namespace sdyz
 {

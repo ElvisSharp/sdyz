@@ -1,19 +1,15 @@
-ï»¿#include <sdyz/algorithm/cryptography/aes/aes.hpp>
-#include <sdyz/arg_parser/arg_parser.hpp>
-#include <sdyz/exception/exception_pack.hpp>
+#include <sdyz/crypter/crypter.hpp>
 #include <sdyz/algorithm/hash/sha1.hpp>
+#include <sdyz/algorithm/cryptography/aes/aes.hpp>
+#include <sdyz/exception/exception_pack.hpp>
 #include <sdyz/vector/byte_vector.hpp>
-#include <sdyz/plus/file_plus.hpp>
 #include <sdyz/tools/encoding.hpp>
-
-#include "mcaes.h"
 
 namespace sdyz
 {
-    using std::string;
-
-    // éšæœºå­—èŠ‚æ•°ç»„
-    sdyz::byte_vector rand_byte_vector(size_t _Size) {
+    // Ëæ»ú×Ö½ÚÊı×é
+    sdyz::byte_vector rand_byte_vector(size_t _Size) 
+    {
         size_t i = 0;
         srand(time(NULL));
         sdyz::byte_vector res(_Size);
@@ -23,86 +19,82 @@ namespace sdyz
         return res;
     }
 
-    string mcaes::encrypt(const std::string &_Plain, const std::string &_Key)
+    string aes_crypter::encrypt(const std::string& _Plain, const std::string& _Key)
     {
-        // ç”Ÿæˆéšæœºnonce
+        // Éú³ÉËæ»únonce
         sdyz::byte_vector nonce = sdyz::rand_byte_vector(16);
-        // å°†å¯†ç è¿›è¡Œä¸¤æ¬¡sha1
+        // ½«ÃÜÂë½øĞĞÁ½´Îsha1
         sdyz::byte_vector sha1_x2_key;
         sha1_x2_key = sdyz::sha1(_Key);
         sha1_x2_key = sdyz::sha1(sha1_x2_key.to_hex_string());
-        // å°†æ˜æ–‡è½¬ä¸ºå­—èŠ‚æ•°ç»„
+        // ½«Ã÷ÎÄ×ªÎª×Ö½ÚÊı×é
         sdyz::aes plain(sdyz::to_byte_vector(_Plain));
         plain = sha1_x2_key + plain;
-        // å°†å¯†ç æ ‡å‡†åŒ–ä¸º16ä¸ªå­—èŠ‚çš„å¯†é’¥
+        // ½«ÃÜÂë±ê×¼»¯Îª16¸ö×Ö½ÚµÄÃÜÔ¿
         sdyz::byte_vector key;
         key = sdyz::sha1(_Key);
         key.resize(16);
-        // å¯¹æ˜æ–‡è¿›è¡ŒOFBåŠ å¯†
+        // ¶ÔÃ÷ÎÄ½øĞĞOFB¼ÓÃÜ
         plain.OFB_encrypt(nonce, key);
-        return nonce.to_hex_string()  + plain.to_hex_string();
+        return nonce.to_hex_string() + plain.to_hex_string();
     }
 
-    string mcaes::decrypt(const std::string &_Cipher, const std::string &_Key)
+    string aes_crypter::decrypt(const std::string& _Cipher, const std::string& _Key)
     {
-        // è®¡ç®—å¯†é’¥
+        // ¼ÆËãÃÜÔ¿
         sdyz::byte_vector key;
-        // å¯¹å¯†ç sha1ï¼Œå–å‰16ä¸ªå­—èŠ‚
+        // ¶ÔÃÜÂësha1£¬È¡Ç°16¸ö×Ö½Ú
         key = sdyz::sha1(_Key);
         key.resize(16);
-        // å°†å¯†ç è¿›è¡Œä¸¤æ¬¡sha1
+        // ½«ÃÜÂë½øĞĞÁ½´Îsha1
         sdyz::byte_vector sha1_x2_key;
         sha1_x2_key = sdyz::sha1(_Key);
         sha1_x2_key = sdyz::sha1(sha1_x2_key.to_hex_string());
-        // è¾“å…¥çš„å­—ç¬¦ä¸²è½¬ä¸ºbyte_vector
+        // ÊäÈëµÄ×Ö·û´®×ªÎªbyte_vector
         sdyz::byte_vector input_vector(_Cipher);
-        if(input_vector.size() < 36)
-        {
-            throw sdyz::base_exception(-1, "éæ³•çš„mcaeså¯†æ–‡ï¼");
-        }
-        // å–å‰16ä¸ªå­—èŠ‚ä¸ºnonceï¼Œåä¸ºå¯†æ–‡
+        // È¡Ç°16¸ö×Ö½ÚÎªnonce£¬ºóÎªÃÜÎÄ
         sdyz::byte_vector nonce(16);
         std::copy(input_vector.begin(), input_vector.begin() + 16, nonce.begin());
         sdyz::byte_vector input(input_vector.size() - 16);
         std::copy(input_vector.begin() + 16, input_vector.end(), input.begin());
         sdyz::aes cipher(input);
         cipher.OFB_decrypt(nonce, key);
-        // å¯¹æ¯”ä¸¤æ¬¡sha1çš„ç»“æœ
+        // ¶Ô±ÈÁ½´Îsha1µÄ½á¹û
         sdyz::byte_vector input_sha1_x2_key(20);
         std::copy(cipher.begin(), cipher.begin() + 20, input_sha1_x2_key.begin());
-        if(input_sha1_x2_key != sha1_x2_key)
+        if (input_sha1_x2_key != sha1_x2_key)
         {
             return "";
         }
         sdyz::byte_vector res(cipher.size() - 20);
-        std::copy(cipher.begin() +20, cipher.end(), res.begin());
+        std::copy(cipher.begin() + 20, cipher.end(), res.begin());
         return to_string(res);
     }
 
-    bool mcaes::check_key(const std::string &_Cipher, const std::string &_Key)
+    bool aes_crypter::check_key(const std::string& _Cipher, const std::string& _Key)
     {
-        // è®¡ç®—å¯†é’¥
+        // ¼ÆËãÃÜÔ¿
         sdyz::byte_vector key;
-        // å¯¹å¯†ç sha1ï¼Œå–å‰16ä¸ªå­—èŠ‚
+        // ¶ÔÃÜÂësha1£¬È¡Ç°16¸ö×Ö½Ú
         key = sdyz::sha1(_Key);
         key.resize(16);
-        // å°†å¯†ç è¿›è¡Œä¸¤æ¬¡sha1
+        // ½«ÃÜÂë½øĞĞÁ½´Îsha1
         sdyz::byte_vector sha1_x2_key;
         sha1_x2_key = sdyz::sha1(_Key);
         sha1_x2_key = sdyz::sha1(sha1_x2_key.to_hex_string());
-        // è¾“å…¥çš„å­—ç¬¦ä¸²è½¬ä¸ºbyte_vector
+        // ÊäÈëµÄ×Ö·û´®×ªÎªbyte_vector
         sdyz::byte_vector input_vector(_Cipher);
-        // å–å‰16ä¸ªå­—èŠ‚ä¸ºnonceï¼Œåä¸ºå¯†æ–‡
+        // È¡Ç°16¸ö×Ö½ÚÎªnonce£¬ºóÎªÃÜÎÄ
         sdyz::byte_vector nonce(16);
         std::copy(input_vector.begin(), input_vector.begin() + 16, nonce.begin());
         sdyz::byte_vector input(input_vector.size() - 16);
         std::copy(input_vector.begin() + 16, input_vector.end(), input.begin());
         sdyz::aes cipher(input);
         cipher.OFB_decrypt(nonce, key);
-        // å¯¹æ¯”ä¸¤æ¬¡sha1çš„ç»“æœ
+        // ¶Ô±ÈÁ½´Îsha1µÄ½á¹û
         sdyz::byte_vector input_sha1_x2_key(20);
         std::copy(cipher.begin(), cipher.begin() + 20, input_sha1_x2_key.begin());
-        if(input_sha1_x2_key != sha1_x2_key)
+        if (input_sha1_x2_key != sha1_x2_key)
         {
             return true;
         }
@@ -111,4 +103,4 @@ namespace sdyz
             return false;
         }
     }
-};
+}

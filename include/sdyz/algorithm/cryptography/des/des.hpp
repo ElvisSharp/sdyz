@@ -5,7 +5,7 @@
 ***********************************************************/
 
 #pragma once
-#include <sdyz/des/des_core.hpp>
+#include <sdyz/algorithm/cryptography/des/des_core.hpp>
 #include <sdyz/vector/byte_vector.hpp>
 
 namespace sdyz

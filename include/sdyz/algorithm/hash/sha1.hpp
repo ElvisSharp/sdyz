@@ -7,7 +7,7 @@
 #pragma once
 #include<string>
 
-#include<sdyz/hash/sha1_core.hpp>
+#include<sdyz/algorithm/hash/sha1_core.hpp>
 #include<sdyz/vector/byte_vector.hpp>
 
 namespace sdyz

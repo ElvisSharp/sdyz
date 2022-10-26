@@ -1,5 +1,5 @@
-#include <sdyz/des/des_core.hpp>
-#include <sdyz/des/des.hpp>
+#include <sdyz/algorithm/cryptography/des/des_core.hpp>
+#include <sdyz/algorithm/cryptography/des/des.hpp>
 #include <sdyz/vector/byte_vector.hpp>
 
 namespace sdyz
