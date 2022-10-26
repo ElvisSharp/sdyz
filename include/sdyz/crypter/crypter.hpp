@@ -6,47 +6,65 @@ namespace sdyz
 {
     using std::string;
 
-    // Ëæ»úÊı×éÉú³É
+    // éšæœºæ•°ç»„ç”Ÿæˆ
     sdyz::byte_vector rand_byte_vector(size_t _Size);
 
     class crypter
     {
     public:
         /*************************************************
-         * encrypt£º¼ÓÃÜº¯Êı
-         * _Plain: Ã÷ÎÄ
-         * _Key: ÃÜÂë
-         * return: 16½øÖÆÃÜÎÄ
+         * encryptï¼šåŠ å¯†å‡½æ•°
+         * _Plain: æ˜æ–‡
+         * _Key: å¯†ç 
+         * return: 16è¿›åˆ¶å¯†æ–‡
          *************************************************/
         virtual string encrypt(const string& _Plain, const string& _Key) = 0;
 
         /**************************************************
-         * decrypt£º½âÃÜº¯Êı
-         * _Cipher: ×Ö·û´®ÃÜÎÄ
-         * _Key: ÃÜÂë
-         * return: Ã÷ÎÄ
+         * decryptï¼šè§£å¯†å‡½æ•°
+         * _Cipher: å­—ç¬¦ä¸²å¯†æ–‡
+         * _Key: å¯†ç 
+         * return: æ˜æ–‡
          ***************************************************/
         virtual string decrypt(const string& _Cipher, const string& _Key) = 0;
 
         /**************************************************
-         * check_key£ºÅĞ¶ÏÃÜÔ¿ÊÇ·ñÕıÈ·º¯Êı
-         * _Cipher: ×Ö·û´®ÃÜÎÄ
-         * _Key: ÃÜÂë
-         * return: ÊÇ/·ñ
+         * check_keyï¼šåˆ¤æ–­å¯†é’¥æ˜¯å¦æ­£ç¡®å‡½æ•°
+         * _Cipher: å­—ç¬¦ä¸²å¯†æ–‡
+         * _Key: å¯†ç 
+         * return: æ˜¯/å¦
          ***************************************************/
         virtual bool check_key(const string& _Cipher, const string& _Key) = 0;
     };
 
-    // |-------plain hex text-----------|-------------------------------decrypted content by aes------------------|
-    // |------rnd nonce 16bits----------|-------key double sha1 20bits-----------|------<your content...>---------|
-    class aes_crypter : protected crypter
+    typedef crypter* crypter_ptr;
+ 
+    class crypter_factory
     {
+    protected:
+        // |-------plain hex text-----------|-------------------------------decrypted content by aes------------------|
+        // |------rnd nonce 16bits----------|-------key double sha1 20bits-----------|------<your content...>---------|
+        class aes_crypter : public crypter
+        {
+        public:
+            virtual string encrypt(const string& _Plain, const string& _Key);
+
+            virtual string decrypt(const string& _Cipher, const string& _Key);
+
+            virtual bool check_key(const string& _Cipher, const string& _Key);
+
+        };
+
     public:
-        virtual string encrypt(const string& _Plain, const string& _Key);
+        enum class crypter_option
+        {
+            AES = 0,
+            DES
+        };
 
-        virtual string decrypt(const string& _Cipher, const string& _Key);
+    public:
+        static crypter_ptr create_crypter(crypter_option _Crypter_Option);
 
-        virtual bool check_key(const string& _Cipher, const string& _Key);
-
+        static void destroy_crypter(crypter_ptr _Crypter);
     };
 };

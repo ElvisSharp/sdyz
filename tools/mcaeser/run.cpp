@@ -7,9 +7,9 @@
 #include <sdyz/algorithm/cryptography/aes/aes.hpp>
 #include <sdyz/algorithm/hash/sha1.hpp>
 #include <sdyz/arg_parser/arg_parser.hpp>
+#include <sdyz/crypter/crypter.hpp>
 
 #include "run.h"
-#include "mcaes.h"
 #include "exception.hpp"
 
 using namespace sdyz;
@@ -43,6 +43,7 @@ void run(int _Argc, char** _Argv)
 		printHelpInfo();
 		return;
 	}
+	crypter_ptr aes_crypter = crypter_factory::create_crypter(crypter_factory::crypter_option::AES);
 	//判断是否同时存在加密解密
 	if (parser[DE].cmd_exists() && (parser[EN].cmd_exists()))
 	{
@@ -63,17 +64,17 @@ void run(int _Argc, char** _Argv)
 		throw Unspecified_Cryption_Key(__func__);
 	}
 
-	sdyz::mcaes mcaes_cipher;
 	//加密
 	if (parser[EN].cmd_exists())
 	{
-		cout << mcaes_cipher.encrypt(parser[INPUT][0], key) << endl;
+		cout << aes_crypter->encrypt(parser[INPUT][0], key) << endl;
 	}
 	//解密
 	else if (parser[DE].cmd_exists())
 	{
-		cout << mcaes_cipher.decrypt(parser[INPUT][0], key) << endl;
+		cout << aes_crypter->decrypt(parser[INPUT][0], key) << endl;
 	}
+	crypter_factory::destroy_crypter(aes_crypter);
 }
 
 void printHelpInfo()
