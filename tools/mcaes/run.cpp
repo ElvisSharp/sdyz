@@ -72,7 +72,14 @@ void run(int _Argc, char** _Argv)
 	//解密
 	else if (parser[DE].cmd_exists())
 	{
-		cout << aes_crypter->decrypt(parser[INPUT][0], key) << endl;
+		if (aes_crypter->check_key(parser[INPUT][0], key))
+		{
+			cout << aes_crypter->decrypt(parser[INPUT][0], key) << endl;
+		}
+		else
+		{
+			cerr << "Wrong Password!" << endl;
+		}
 	}
 	crypter_factory::destroy_crypter(aes_crypter);
 }

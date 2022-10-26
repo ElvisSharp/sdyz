@@ -1,11 +1,9 @@
 cmake_minimum_required(VERSION 3.1)
-project(sdyz VERSION 4.0.4)
+project(sdyz VERSION 4.1.1)
 
 #       Vesion                  Description
-#       v4.0.1                  1.更新CMakeLists.txt，对源文件进行分类；2.修改部分注释；3.修改basekey为nonce
-#       v4.0.2                  1.更新CMakeLists.txt，对头文件进行分类
-#       v4.0.3                  1.新增编码转换encoding
-#       v4.0.4                  1.修改进度条progress_bar为单线程的模式
+#       v4.1.1                  1.修改aes等算法的目录位置；2.新增工厂模式的crypter。
+
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -156,20 +154,20 @@ if(TEST_VECTOR)
 endif(TEST_VECTOR)
 
 #需要编译的子项目
-#mcaeser
-option(MCAESER "Compile mcaeser" ON)
-if(MCAESER)
-    add_subdirectory(tools/mcaeser)
-endif(MCAESER)
+#mcaes
+option(MCAES "Compile mcaes" ON)
+if(MCAES)
+    add_subdirectory(tools/mcaes)
+endif(MCAES)
 
-#maeser
-option(MAESER "Compile maeser" ON)
-if(MAESER)
-    add_subdirectory(tools/maeser)
-endif(MAESER)
+#maes
+option(MAES "Compile maes" ON)
+if(MAES)
+    add_subdirectory(tools/maes)
+endif(MAES)
 
-#mdeser
-option(MDESER "Compile mdeser" ON)
-if(MDESER)
-    add_subdirectory(tools/mdeser)
-endif(MDESER)
+#mdes
+option(MDES "Compile mdes" ON)
+if(MDES)
+    add_subdirectory(tools/mdes)
+endif(MDES)

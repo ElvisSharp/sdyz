@@ -96,11 +96,11 @@ namespace sdyz
         std::copy(cipher.begin(), cipher.begin() + 20, input_sha1_x2_key.begin());
         if (input_sha1_x2_key != sha1_x2_key)
         {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
     }
     crypter_ptr crypter_factory::create_crypter(crypter_option _Crypter_Option)
