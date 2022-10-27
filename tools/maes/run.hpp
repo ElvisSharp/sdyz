@@ -7,7 +7,7 @@
 using namespace sdyz;
 using namespace std;
 
-enum OPT
+enum class OPT
 {
 	HELP = 0,
 	EN,
