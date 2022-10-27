@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.1)
-project(sdyz VERSION 4.1.1)
+project(sdyz VERSION 4.1.2)
 
 #       Vesion                  Description
 #       v4.1.1                  1.修改aes等算法的目录位置；2.新增工厂模式的crypter。
+#       v4.1.2                  1.修改maes，mdes，mcaes的信息打印编码。
 
 
 set(CMAKE_CXX_STANDARD 11)
